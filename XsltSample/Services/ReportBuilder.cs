@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using XsltSample.Services.Pdf;
 
 namespace XsltSample.Services
 {
@@ -33,6 +34,22 @@ namespace XsltSample.Services
                 xsSubmit.Serialize(writer, _Data);
                 return sww.ToString();
             }
+        }
+
+        public byte[] GetHtml()
+        {
+            var xml = GetXml();
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            XmlToHtmlService svc = new XmlToHtmlService(doc, _XslPath);
+            return svc.GetHtml();
+        }
+
+        public void SavePdf(string pdfPath)
+        {
+            var html = GetHtml();
+            HtmlToPdfService pdfSvc = new HtmlToPdfService();
+            pdfSvc.HtmlToPdf(html, pdfPath);
         }
     }
 }

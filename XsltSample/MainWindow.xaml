@@ -4,9 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XsltSample"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="120" Width="250">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="28" />
+        </Grid.RowDefinitions>
+        <Label Content="Items count:" />
+        <TextBox Text="{Binding ItemsCount, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Grid.Row="0" Grid.Column="1" Margin="10 0 0 0"/>
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Generate" Margin="0 7 0 0" Click="Button_Click"/>
     </Grid>
 </Window>
