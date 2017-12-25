@@ -21,22 +21,27 @@ namespace XsltSample.Services.Pdf
 
             htmlToPdf.Margins = new PageMargins()
             {
-                Bottom = 25,
+                Bottom = 10,
                 Top = 10,
-                Left = 20,
+                Left = 5,
                 Right = 10
             };
 
+            //htmlToPdf.PageHeaderHtml = File.ReadAllText("Resources/header.html");
+            //htmlToPdf.PageFooterHtml = File.ReadAllText("Resources/footer.html");
+
             htmlToPdf.CustomWkHtmlArgs =
                 $"--dpi 96 " +
-                $"--encoding utf-8 --disable-smart-shrinking " +
-                $"--header-right \"[page] of [toPage]\" " +
+                $"--encoding utf-8 --disable-smart-shrinking ";
+            /*
+             * $"--header-right \"[page] of [toPage]\" " +
                 $"--header-left \"{headerRight ?? string.Empty}\" " +
                 $"--footer-left \"{pdfFooterLeft}\" " +
                 $"--footer-spacing 15 " +
                 $"--header-line " +
                 $"--footer-font-name \"Arial Unicode MS\" --footer-font-size 8 " +
                 $"--header-font-name \"Arial Unicode MS\" --footer-font-size 8";
+             */
 
             var pdfBytes = htmlToPdf.GeneratePdf(html);
             File.WriteAllBytes(outPath, pdfBytes);

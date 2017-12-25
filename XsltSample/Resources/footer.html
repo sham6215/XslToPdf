@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Header</title>
+    <style type="text/css">
+        .sidenav {
+            width: 20mm;
+            position: fixed;
+            z-index: 1;
+            top: 0px;
+            right: 10mm;
+            background: #eee;
+            overflow-x: hidden;
+            /*padding: 8px 0;*/
+        }
+
+        .content {
+            background: #AAAAAA;
+            padding: 2mm 30mm 2mm 2mm;
+            text-align: center;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var pdfInfo = {};
+        var x = document.location.search.substring(1).split('&');
+        for (var i in x) { var z = x[i].split('=', 2); pdfInfo[z[0]] = unescape(z[1]); }
+        function getPdfInfo() {
+            var page = pdfInfo.page || 1;
+            var pageCount = pdfInfo.topage || 1;
+            document.getElementById('page').textContent = page;
+            document.getElementById('pages').textContent = pageCount;
+        }
+        window.onload = function () { getPdfInfo(); };
+    </script>
+</head>
+<body>
+    <div class="sidenav">
+        <span id="page" ></span>&nbsp;of&nbsp;<span id="pages"></span>
+    </div>
+    <div class="content">Each report FOOTER</div>
+</body>
+</html>

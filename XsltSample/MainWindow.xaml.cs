@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Xml;
 using XsltSample.Models;
@@ -67,6 +68,10 @@ namespace XsltSample
             string xslPath = @"N:\work\projects\GitHub\XsltSample\XsltSample\Xslt\EncReport.xslt";
             ReportEnc re = GenerateReportData();
             ReportBuilder bld = new ReportBuilder(re, xslPath);
+
+            string htmlPath = @"N:\work\projects\GitHub\XsltSample\XsltSample\Resources\report.html";
+            File.WriteAllBytes(htmlPath, bld.GetHtml());
+
             bld.SavePdf(pdfPath);
             //string param = $"/select, \"{pdfPath}\"";
             //Process.Start("explorer.exe", param);

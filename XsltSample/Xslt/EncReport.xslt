@@ -5,52 +5,40 @@
       <head>
         <title>{Report Title}</title>
         <style type="text/css">
-          table {
-          padding-bottom: 20mm
-          }
-          .table-title {
-          font-weight: 100
-          }
-          @page {
-          size: A4;
-          margin: 20mm 10mm 20mm 20mm;
-          }
-          @media print {
-          thead {
-          display: table-header-group;
-          }
-          }
-          tr:nth-child(odd) {
-          background: White;
-          }
-          tr:nth-child(even) {
-          background: #EFEFEF;
-          }
+          <style type="text/css">
 
-          thead { display: table-header-group }
+            table {
+            font-size: 14pt;
+            }
 
-          td {
-          padding: 5px;
-          font-size: 10pt;
-          display: inline-block;
-          -webkit-column-break-inside: avoid;
-          page-break-inside: avoid; /* Firefox */
-          break-inside: avoid; /* IE 10+ */
-          }
+            .table-title {
+            font-weight: 100
+            }
 
-          tr {
-          page-break-inside: avoid;
-          display: inline-block;
-          -webkit-column-break-inside: avoid;
-          page-break-inside: avoid; /* Firefox */
-          break-inside: avoid; /* IE 10+ */
-          }
+            tr:nth-child(odd) {
+            background: White;
+            }
 
-          tr td:not(:nth-child(3)),
-          tr th:not(:nth-child(3))  {
-          width:1%;
-          white-space:nowrap;
-          }
+            tr:nth-child(even) {
+            background: #EFEFEF;
+            }
+
+            tr {
+            page-break-inside: avoid;
+            /*display: inline-block;*/
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+            break-inside: avoid;
+
+            }
+
+            tr td:not(:nth-child(3)),
+            tr th:not(:nth-child(3))  {
+            width:1%;
+            white-space:nowrap;
+
+            }
+          </style>
         </style>
       </head>
       <body>
