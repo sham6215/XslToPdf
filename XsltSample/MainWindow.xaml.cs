@@ -11,7 +11,6 @@ using System.Xml;
 using WkHtmlToXSharp;
 using XsltSample.Models;
 using XsltSample.Services;
-using XsltSample.Services.Pdf;
 
 namespace XsltSample
 {
@@ -20,8 +19,10 @@ namespace XsltSample
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        //public string TestHtml => @"N:\work\projects\GitHub\XsltSample\XsltSample\Resources\report.html";
-        public string TestHtml => @"N:\work\projects\GitHub\XsltSample\XsltSample\Resources\reportTable.html";
+        public string ApplicationDirectory => Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        public string XslPath => Path.Combine(ApplicationDirectory, @"Resources\EncReport.xslt");
+        public string HeaderPath => Path.Combine(ApplicationDirectory, @"Resources\header.html");
+        public string FooterPath => Path.Combine(ApplicationDirectory, @"Resources\footer.html");
         private int _itemsCount = 50;
         public int ItemsCount
         {
@@ -57,7 +58,7 @@ namespace XsltSample
                 FileName = $"report_{DateTime.Now.ToString("hhmmss")}.pdf",
                 Filter = "PDF file (*.pdf)|*.pdf",
                 Title = "Save Report File",
-                InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
+                InitialDirectory = ApplicationDirectory
             };
 
             if (dlg.ShowDialog() == true)
@@ -68,16 +69,14 @@ namespace XsltSample
 
         public void CreateReport(string pdfPath)
         {
-            string xslPath = @"N:\work\projects\GitHub\XsltSample\XsltSample\Xslt\EncReport.xslt";
+            string xslPath = XslPath;
             ReportEnc re = GenerateReportData();
             ReportBuilder bld = new ReportBuilder(re, xslPath);
-
-            string htmlPath = @"N:\work\projects\GitHub\XsltSample\XsltSample\Resources\report.html";
-            File.WriteAllBytes(htmlPath, bld.GetHtml());
-
+            bld.HeaderHtmlUrl = HeaderPath;
+            bld.HeaderSpacing = 1;
+            bld.FooterHtmlUrl = FooterPath;
+            bld.FooterSpacing = 1;
             bld.SavePdf(pdfPath);
-            //string param = $"/select, \"{pdfPath}\"";
-            //Process.Start("explorer.exe", param);
             Process.Start($"\"{pdfPath}\"");
         }
 
@@ -107,38 +106,6 @@ namespace XsltSample
             };
 
             return re;
-        }
-
-        private void TestConversion()
-        {
-            var ignore = Environment.GetEnvironmentVariable("WKHTMLTOXSHARP_NOBUNDLES");
-            WkHtmlToXLibrariesManager.Register(new Win32NativeBundle());
-            using (var wk = new MultiplexingConverter())
-            {
-                wk.GlobalSettings.Margin.Top = "0cm";
-                wk.GlobalSettings.Margin.Bottom = "0cm";
-                wk.GlobalSettings.Margin.Left = "0cm";
-                wk.GlobalSettings.Margin.Right = "0cm";
-                //wk.GlobalSettings.Out = @"c:\temp\tmp.pdf";
-
-                wk.ObjectSettings.Web.EnablePlugins = false;
-                wk.ObjectSettings.Web.EnableJavascript = false;
-                wk.ObjectSettings.Page = TestHtml;
-                //wk.ObjectSettings.Page = "http://doc.trolltech.com/4.\6/qstring.html";
-                wk.ObjectSettings.Load.Proxy = "none";
-
-                var tmp = wk.Convert();
-                var tempfname = Path.GetTempFileName();
-                var tempPath = Path.Combine(
-                    Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location),
-                    $"report_{DateTime.Now.ToString("hhmmss")}.pdf");
-                File.WriteAllBytes(tempPath, tmp);
-            }
-
-        }
-        private void Button2_Click(object sender, RoutedEventArgs e)
-        {
-            TestConversion();
         }
     }
 }

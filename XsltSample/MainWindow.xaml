@@ -22,7 +22,6 @@
                  Grid.Row="0" Grid.Column="1" Margin="10 0 0 0"/>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
         <Button Content="Generate" Margin="0 7 0 0" Click="Button_Click"/>
-        <Button Content="GenerateWk" Margin="0 7 0 0" Click="Button2_Click"/>
         </StackPanel>
     </Grid>
 </Window>

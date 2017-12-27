@@ -104,7 +104,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\ReportEnc.cs" />
-    <Compile Include="Services\HtmlToPdfService.cs" />
     <Compile Include="Services\ReportBuilder.cs" />
     <Compile Include="Services\WkHtmlToPdfService.cs" />
     <Compile Include="Services\XmlToHtmlService.cs" />
@@ -149,7 +148,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Xslt\EncReport.xslt" />
+    <Content Include="Resources\EncReport.xslt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\footer.html">

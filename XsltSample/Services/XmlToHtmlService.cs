@@ -13,14 +13,14 @@ namespace XsltSample.Services
         public XmlDocument Document { get; private set; }
         public string XslSchemaPath { get; private set; }
         /// <summary>
-        /// 
+        /// Returns byte[] representation of UTF8 encoded XML
         /// </summary>
         private byte[] XmlData
         {
             get
             {
                 using (MemoryStream ms = new MemoryStream())
-                using (StreamWriter sr = new StreamWriter(ms))
+                using (StreamWriter sr = new StreamWriter(ms, Encoding.UTF8))
                 {
                     Document.Save(ms);
                     return ms.ToArray();
@@ -39,6 +39,10 @@ namespace XsltSample.Services
             XslSchemaPath = schemaPath;
         }
 
+        /// <summary>
+        /// Returns byte[] representation of UTF8 encoded HTML
+        /// </summary>
+        /// <returns></returns>
         public byte[] GetHtml()
         {
             byte[] result = null;
@@ -47,7 +51,8 @@ namespace XsltSample.Services
 
             XmlWriterSettings settings = new XmlWriterSettings()
             {
-                ConformanceLevel = ConformanceLevel.Fragment
+                ConformanceLevel = ConformanceLevel.Fragment,
+                Encoding = Encoding.UTF8
             };
             
             using (MemoryStream msr = new MemoryStream(XmlData))
