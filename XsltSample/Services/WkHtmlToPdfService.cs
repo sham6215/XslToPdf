@@ -7,8 +7,24 @@ using WkHtmlToXSharp;
 
 namespace XsltSample.Services
 {
+    /// <summary>
+    /// The class utilize wkhtml wrapper.
+    /// All not implemented methods and properties are declared fo interface purpose
+    /// </summary>
     public class WkHtmlToPdfService
     {
+        /// From WkHtmlToXSharp code: https://github.com/pruiz/WkHtmlToXSharp/blob/master/WkHtmlToXSharp/MultiplexingConverter.cs
+        /// 
+        /// XXX: We need to keep a converter instance alive during the whole application
+        ///		lifetime due to some underlying's library bug by which re-initializing
+        ///		the API after having deinitiaized it, causes all newlly rendered pdf
+        ///		file to be corrupted. So we will keep this converter alive to avoid 
+        ///		de-initialization until app's shutdown. (pruiz)
+        ///		
+        /// MultiplexingConverter is not used because the application can't exit after its using.
+        private static WkHtmlToPdfConverter _instanse = null;
+
+
         #region Properties not implemented
         //
         // Summary:
@@ -137,8 +153,12 @@ namespace XsltSample.Services
 
         private void Init()
         {
-            /// Copies wkhtmltox0.dll to the assembly directory
-            WkHtmlToXLibrariesManager.Register(new Win32NativeBundle());
+            if (_instanse == null)
+            {
+                /// Copies wkhtmltox0.dll to the assembly directory
+                WkHtmlToXLibrariesManager.Register(new Win32NativeBundle());
+                _instanse = new WkHtmlToPdfConverter();
+            }
         }
 
         /// <summary>

@@ -72,12 +72,14 @@ namespace XsltSample.Services
             var svc = new WkHtmlToPdfService();
             if (!string.IsNullOrEmpty(FooterHtmlUrl))
             {
-                svc.HeaderHtmlUrl = FooterHtmlUrl;
-                svc.HeaderSpacing = HeaderSpacing;
                 svc.FooterHtmlUrl = FooterHtmlUrl;
                 svc.FooterSpacing = FooterSpacing;
             }
-            svc.HeaderHtmlUrl = HeaderHtmlUrl;
+            if (!string.IsNullOrEmpty(HeaderHtmlUrl))
+            {
+                svc.HeaderHtmlUrl = HeaderHtmlUrl;
+                svc.HeaderSpacing = HeaderSpacing;
+            }
             return svc;
         }
     }

@@ -64,6 +64,7 @@ namespace XsltSample
             if (dlg.ShowDialog() == true)
             {
                 CreateReport(dlg.FileName);
+                MessageBox.Show("Done");
             }
         }
 
@@ -85,7 +86,7 @@ namespace XsltSample
             List<Enc> list = new List<Enc>();
             for (int i = 1; i <= ItemsCount; ++i)
             {
-                string description = string.Concat(Enumerable.Repeat("Enc Description ", (i % 4) + 1));
+                string description = string.Concat(Enumerable.Repeat("Enc Description ", (i % 20) + 1));
                 list.Add(
                     new Enc()
                     {
