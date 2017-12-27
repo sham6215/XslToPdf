@@ -34,7 +34,7 @@ namespace XsltSample.Services.Pdf
                 $"--dpi 96 " +
                 $"--encoding utf-8 --disable-smart-shrinking ";
             /*
-             * $"--header-right \"[page] of [toPage]\" " +
+                $"--header-right \"[page] of [toPage]\" " +
                 $"--header-left \"{headerRight ?? string.Empty}\" " +
                 $"--footer-left \"{pdfFooterLeft}\" " +
                 $"--footer-spacing 15 " +
